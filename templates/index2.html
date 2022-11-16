@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>다이어리</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+
+
+
+
+    <style>
+        @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        * {
+            font-family: 'KyoboHand', serif;
+            font-size: 20px;
+        }
+
+
+        .wrap {
+
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+
+        .navbar {
+            width: 95%;
+            height: 100px;
+        }
+        .navbar .ref {
+            display: inline-flex;
+            justify-content: flex-start;
+        }
+
+        .navbar .ref .SDiary {
+            margin-left: 10px;
+        }
+
+
+
+
+        .right_menu {
+            display: inline-flex;
+            padding: 10px;
+        }
+
+
+        .right_menu > div {
+            padding-left: 8px;
+        }
+
+
+        /*  추가한 폼*/
+
+        .navbar2 {
+            width: 95%;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: left;
+
+
+            margin: 50px 0px 50px 20px;
+
+        }
+
+        .navbar2 .n1 {
+            margin-right: 15px;
+
+        }
+
+        .navbar2 .n2 {
+            margin-right: 15px;
+
+        }
+
+
+
+
+
+
+
+        .card .btn1 {
+            position: absolute;
+            margin-left: 90%;
+            margin-top: 5%;
+
+            color: red;
+
+
+        }
+
+        .cdst {
+            display: inline-flex;
+            width:
+
+        }
+
+        .cdst > h5 > card-title2 {
+            justify-content: end;
+
+        }
+
+        .card:hover{
+            box-shadow: 20px 20px 80px -44px #000;
+            transition: .5s ease-in-out;
+            cursor: pointer;
+
+
+        }
+
+
+        .card-text .btn{
+            background-color: transparent;
+            outline-color: transparent;
+
+        }
+
+
+    </style>
+
+
+    <script>
+        // 함수 정의
+        <!--카드 붙이는 ajax -->
+        function q1() {
+            $("#cards-box").empty();
+            $("#MDALBOX").empty();
+
+
+
+            $.ajax({
+                type: "GET",
+                url: "/api/post",
+                data: {},
+                success: function (response) {
+                    let rows = response['Diary'];
+
+                    for (let i = 0; i < rows.length; i++) {
+                        let Id = rows[i]["id"];
+                        let IsSecret = rows[i]["isSecret"];
+                        let Likes = rows[i]["like"];
+                        let write = rows[i]["write"];
+                        let WriteDate = rows[i]["date"];
+                        let State = rows[i]["state"];
+                        let image = rows[i]["img"];
+                        let title = rows[i]["title"];
+
+
+                        if (IsSecret == 0 || IsSecret == "false") {
+                            let cards_html = `<div class="col">
+                                                            <div class="card">
+
+                                                                  <div class="btn1" onclick="" >(${Likes})❤</div>
+                                                                  <img src="${image}" class="card-img-top" alt="...">
+                                                                  <div class="card-body">
+                                                                    <h5 class="card-title">${title} / ${State}</h5>
+                                                                    <p class="card-text">${write} <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal${i}">click+</button></p>
+
+                                                                    <div class="info-User">별명: ${Id} / 날짜: ${WriteDate}</div>
+
+                                                                  </div>
+
+
+
+                                                            </div>
+                                                          </div>`;
+
+                            let MD_html = `            <div class="modal fade" id="exampleModal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                          <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                              <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">${title}</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                              </div>
+                                                              <div class="modal-body">
+                                                                ${write}
+                                                              </div>
+                                                              <div class="modal-footer">
+
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>`;
+
+
+
+
+                            $("#cards-box").append(cards_html);
+                            $("#MDALBOX").append(MD_html);
+
+                        }
+
+
+                    }
+                },
+            });
+        }
+
+
+
+         <!--카드 붙이는 ajax -->
+        function myq1() {
+            $("#cards-box").empty();
+            $("#MDALBOX").empty();
+
+
+
+            $.ajax({
+                type: "GET",
+                url: "/api/post",
+                data: {},
+                success: function (response) {
+                    let rows = response['Diary'];
+
+                    for (let i = 0; i < rows.length; i++) {
+                        let Id = rows[i]["id"];
+                        //if(ID != ~~~){ continue; };
+                        let IsSecret = rows[i]["isSecret"];
+                        let Likes = rows[i]["like"];
+                        let write = rows[i]["write"];
+                        let WriteDate = rows[i]["date"];
+                        let State = rows[i]["state"];
+                        let image = rows[i]["img"];
+                        let title = rows[i]["title"];
+
+
+
+                        let cards_html = `<div class="col">
+                                                        <div class="card">
+
+                                                              <div class="btn1" onclick="" >(${Likes})❤</div>
+                                                              <img src="${image}" class="card-img-top" alt="...">
+                                                              <div class="card-body">
+                                                                <h5 class="card-title">${title} / ${State}</h5>
+                                                                <p class="card-text">${write} <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal${i}">click+</button></p>
+
+                                                                <div class="info-User">별명: ${Id} / 날짜: ${WriteDate}</div>
+
+                                                              </div>
+
+
+
+                                                        </div>
+                                                      </div>`;
+
+                        let MD_html = `            <div class="modal fade" id="exampleModal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">${title}</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            ${write}
+                                                          </div>
+                                                          <div class="modal-footer">
+
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>`;
+
+
+
+
+                        $("#cards-box").append(cards_html);
+                        $("#MDALBOX").append(MD_html);
+
+
+
+
+                    }
+                },
+            });
+        }
+
+
+
+
+
+
+
+
+        <!--함수 호출 -->
+        q1()
+
+
+
+    </script>
+
+
+
+
+</head>
+
+<body>
+<!-- 상단바 LINE-->
+<div class="wrap">
+    <p class="navbar">
+
+            <div class="ref">
+                <div class="logo">DIARY</div>
+                <div class="SDiary">비밀일기</div>
+            </div>
+            <div class="right_menu">
+                <div>login</div>
+                <div>join</div>
+            </div>
+
+    </p>
+</div>
+
+
+<!--상단바 2 LINE-->
+<div>
+    <div class="navbar2">
+        <div class="n1" onclick="q1()">전체보기</div>
+        <div class="n2" onclick="myq1()">내 일기</div>
+
+    </div>
+</div>
+
+
+<!--다이어리 카드 붙이기-->
+<div id="cards-box" class="row row-cols-1 row-cols-md-3 g-4" >
+
+</div>
+
+
+
+
+<!--다이어리 자세히 Modal-->
+<div id="MDALBOX">
+</div>
+
+</body>
+</html>
+
+
+
+
+

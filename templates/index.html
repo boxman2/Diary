@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Girassol&family=Meddon&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="cssscreen.css"
+    />
+    <link rel="stylesheet" type="text/css" media="print" href="cssprint.css" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+<style>
+
+    @font-face {
+        font-family: 'KyoboHand';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    * {
+        font-family: 'KyoboHand', serif;
+        font-size: 20px;
+    }
+
+
+
+    html{
+        font-size: 62.5%;
+        overflow-x: hidden;
+    }
+
+
+    .container{
+        max-width: 1200px;
+        margin:0 auto;
+        padding: 3rem 2rem;
+
+    }
+
+    .container .title{
+        font-size: 3.5rem;
+        color: #444;
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+        text-align: center;
+
+    }
+
+    .container .products-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 2rem;
+
+    }
+
+    .container .products-container .product{
+        text-align: center;
+        padding: 3rem 2rem;
+        background: #fff;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+        outline: .1rem solid #ccc;
+        outline-offset: -1.5rem;
+        cursor: pointer;
+    }
+
+    .container .products-container .product:hover{
+        outline: .2rem solid #ccc;
+        outline-offset: 0;
+
+    }
+
+    .container .products-container .product img{
+        height: 25rem;
+    }
+
+
+
+    .container .products-container .product h3{
+        padding:.5rem 0;
+
+        color: #444;
+
+    }
+
+    .container .products-container .product:hover h3{
+        color: green;
+
+    }
+
+    .container .products-container .product .card-ment{
+        font-size: 150%;
+
+
+    }
+
+     .container .products-container .product .card-com {
+
+         display: flex;
+
+
+
+     }
+
+     .container .products-container .product .card-com .reftt{
+         float: left;
+
+
+
+     }
+
+    .container .products-container .product .card-com .righh{
+        float: right;
+        margin-left: auto;
+
+     }
+
+
+
+
+    .products-preview{
+        position: fixed;
+        top: 0; left: 0;
+        min-height: 100vh;
+        width: 100%;
+        background: rgba(0,0,0,.8);
+        display: none;                           //active 검사라인 flex or none
+        align-items: center;
+        justify-content: center;
+
+
+    }
+
+    .products-preview .preview{
+        display: none;
+        padding: 2rem;
+        text-align: center;
+        background: #fff;
+        position: relative;
+        margin: 2rem;
+        width: 40rem;
+    }
+
+    .products-preview .preview.active{
+        display: inline-block;
+    }
+
+    .products-preview .preview img{
+        height: 30rem;
+    }
+
+    .products-preview .preview .fa-times{
+        display: flex;
+        position: absolute;
+        top: 1rem; right:1.5rem;
+        cursor: pointer;
+        color: #444;
+        font-size: 4rem;
+    }
+
+     .products-preview .preview .fa-times:hover{
+        transform: rotate(90deg);
+     }
+
+    .products-preview .preview h3{
+        color: #444;
+        padding: .5rem 0;
+        font-size: 2.5rem;
+
+    }
+
+    .products-preview .preview .stars{
+        padding:1rem 0;
+        font-size: 1.7rem;
+    }
+
+    .products-preview .preview .stars i{
+        color: #27ae60;
+    }
+
+    .products-preview .preview .stars span{
+        color: #999;
+    }
+
+    .products-preview .preview P{
+        line-height: 1.5;
+        padding:0.5rem 0;
+        font-size: 1.6rem ;
+        color: #777;
+    }
+
+
+
+    .products-preview .buttons{
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+
+    .products-preview .buttons a{
+        flex:1 1 16rem;
+        padding: 1rem;
+        font-size: 1.8;
+        color: #444;
+        border: .1rem solid #444;
+    }
+
+    .products-preview .buttons a.cart{
+        background: #444;
+        color: #fff;
+    }
+
+    .products-preview .buttons a.cart:hover{
+        background: #111;
+    }
+
+    .products-preview .buttons a.buy:hover{
+        background: #444;
+        color: #fff;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .wrap {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar {
+        width: 100%;
+        height: 100px;
+    }
+
+    .right_menu {
+        display: inline-flex;
+        padding: 10px;
+    }
+
+    .right_menu > div {
+        padding-left: 8px;
+    }
+
+
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+<script>
+      function close_button(a) {
+        document.getElementById("ex" + a).classList.remove("active");
+        document.querySelector(".products-preview").style.display = "none";
+      }
+
+      function open_button(a) {
+        document.getElementById("ex" + a).className += " active";
+        document.querySelector(".products-preview").style.display = "flex";
+      }
+
+
+
+    function diary() {
+        $("#cards-box").empty();
+        $("#products-cards").empty();
+
+        $.ajax({
+          type: "GET",
+          url: "",
+          data: {},
+          success: function (response) {
+            let rows = response;
+            for (let i = 0; i < rows.length; i++) {
+              let Id = rows[i]["id"];
+              let IdNum = rows[i]["num"];
+              let IsSecret = rows[i]["isSecret"];
+              let Likes = rows[i]["like"];
+              let Comment = rows[i]["comment"];
+              let DateNow = rows[i]["date"];
+              let State = rows[i]["state"];
+              let image = rows[i]["img"];
+
+
+              let temp_html = `<div class="card card-sec2 row-cols-5" style="width: 16rem">
+                                            <img src="${image}" class="card-img-top apiwine" alt="..." />
+                                            <div class="card-body wine-body">
+                                              <div class="col">
+                                                <div class="w-card">
+                                                <div class="winetxt">
+                                                  <h5 class="card-title">${wine}</h5>
+                                                  <p class="card-text">${winery}</p>
+                                                  </div>
+                                                  <div class="morebtn">
+                                                  <button type="button" class="btn btn-outline-secondary" onclick="open_button(${i})"  >More...</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>`;
+
+              let cards_html = `<div id='ex${i}' class="preview" data-target="p-${i}">
+                                              <i class="fas fa-times" onclick="close_button(${i})"></i>
+                                              <img src="${image}" alt="">
+                                              <h3>${wine}</h3>
+                                              <div class="stars">
+                                                 <i class="fas fa-star">${average}</i>
+
+                                                 <span>( ${reviews} )</span>
+                                              </div>
+                                              <p> country: ${location}</p>
+                                              <p> winery: ${winery} </p>
+                                              <div class="price">$2.00</div>
+
+                                           </div>`;
+
+              $("#products-cards").append(cards_html);
+              $("#cards-box").append(temp_html);
+            }
+          },
+        });
+      }
+
+
+
+
+
+      function close_button(a) {
+        document.getElementById("ex" + a).classList.remove("active");
+        document.querySelector(".products-preview").style.display = "none";
+      }
+
+      function open_button(a) {
+        document.getElementById("ex" + a).className += " active";
+        document.querySelector(".products-preview").style.display = "flex";
+      }
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<body>
+
+<!-- 상단 MENU BAR -->
+
+        <div class="navbar">
+            <div class="logo">DIARY</div>
+            <div class="right_menu">
+                <div>login</div>
+                <div>join</div>
+            </div>
+        </div>
+
+
+
+<!--카테고리 선택 BAR-->
+
+    <div class="cate">
+        <a class="ref">전체보기</a>
+        <a class="ref">내 일기</a>
+        <a class="rig">카테고리(이모티콘 넣기)</a>
+    </div>
+
+
+
+    <!--SEC1 카드만들기-->
+
+
+
+ <div class="container">
+
+        <div class="products-container">
+
+            <div class="product" date-name="p-1">
+                <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300"/>
+                <div class="card-com">
+                    <h3 class="reftt">ID title</h3> <h3 class="righh"> 22.11.14</h3>
+                </div>
+                <div class="card-ment">나는 오늘 신나게 놀았다.</div>
+
+            </div>
+
+            <div class="product" date-name="p-2">
+                <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300"/>
+                <div class="card-com">
+                    <h3 class="reftt">ID title</h3> <h3 class="righh"> 22.11.14</h3>
+                </div>
+                <div class="card-ment">나는 오늘 신나게 놀았다.</div>
+            </div>
+
+
+            <div class="product" date-name="p-3">
+                <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300"/>
+                <div class="card-com">
+                    <h3 class="reftt">ID title</h3> <h3 class="righh"> 22.11.14</h3>
+                </div>
+                <div class="card-ment">나는 오늘 신나게 놀았다.</div>
+            </div>
+
+            <div class="product" date-name="p-4">
+                <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300"/>
+                <div class="card-com">
+                    <h3 class="reftt">ID title</h3> <h3 class="righh"> 22.11.14</h3>
+                </div>
+                <div class="card-ment">나는 오늘 신나게 놀았다.</div>
+            </div>
+
+
+            <div class="product" date-name="p-5">
+                <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300"/>
+                <div class="card-com">
+                    <h3 class="reftt">ID title</h3> <h3 class="righh"> 22.11.14</h3>
+                </div>
+                <div class="card-ment">나는 오늘 신나게 놀았다.</div>
+            </div>
+
+
+
+            <div class="product" date-name="p-6">
+                <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300"/>
+                <div class="card-com">
+                    <h3 class="reftt">ID title</h3> <h3 class="righh"> 22.11.14</h3>
+                </div>
+                <div class="card-ment">나는 오늘 신나게 놀았다.</div>
+            </div>
+
+
+
+            <div class="product" date-name="p-7">
+                <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300"/>
+                <div class="card-com">
+                    <h3 class="reftt">ID title</h3> <h3 class="righh"> 22.11.14</h3>
+                </div>
+                <div class="card-ment">나는 오늘 재미있게 놀았다.</div>
+            </div>
+
+        </div>
+
+
+    <div class="products-preview">
+        <div class="preview active" data-target="p-1">
+            <i class="fas fa-times" onclick="close_button(1)"></i>
+
+            <h3>Diary</h3>
+            <div class="stars">
+                <i>💕</i>
+                <span>( 250 )</span>
+            </div>
+
+            <div>
+                <l> asdfasdfasdfasdfasdfasdf</l>
+                <l>asdfasdfasdfasdfasdfasdfadsf</l>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="preview" data-target="p-2">
+            <i class="fas fa-times" onclick="close_button(2)"></i>
+            <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300" />
+            <h3>SPEC</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>( 250 )</span>
+            </div>
+
+            <p> product: </p>
+            <p> country: </p>
+            <p> winery: </p>
+            <p> ex: </p>
+            <div class="price">$2.00</div>
+
+
+        </div>
+
+
+
+        <div class="preview" data-target="p-3">
+            <i class="fas fa-times" onclick="close_button(3)"></i>
+            <img src="https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg" width="300" height="300" />
+            <h3>SPEC</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>( 250 )</span>
+            </div>
+
+            <p> product: </p>
+            <p> country: </p>
+            <p> winery: </p>
+            <p> ex: </p>
+            <div class="price">$2.00</div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</body>
+</html>

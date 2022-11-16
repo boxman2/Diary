@@ -1,0 +1,116 @@
+ @font-face {
+            font-family: 'KyoboHand';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+        * {
+            font-family: 'KyoboHand', serif;
+            font-size: 20px;
+        }
+
+
+        .wrap {
+
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+
+        .navbar {
+            width: 95%;
+            height: 100px;
+        }
+        .navbar .ref {
+            display: inline-flex;
+            justify-content: flex-start;
+        }
+
+        .navbar .ref .SDiary {
+            margin-left: 10px;
+        }
+
+
+
+
+        .right_menu {
+            display: inline-flex;
+            padding: 10px;
+        }
+
+
+        .right_menu > div {
+            padding-left: 8px;
+        }
+
+
+        /*  추가한 폼*/
+
+        .navbar2 {
+            width: 95%;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: left;
+
+
+            margin: 50px 0px 50px 20px;
+
+        }
+
+        .navbar2 .n1 {
+            margin-right: 15px;
+
+        }
+
+        .navbar2 .n2 {
+            margin-right: 15px;
+
+        }
+
+
+
+
+
+
+
+        .card .btn1 {
+            position: absolute;
+            margin-left: 90%;
+            margin-top: 5%;
+
+            color: red;
+
+
+        }
+
+        .cdst {
+            display: inline-flex;
+            width:
+
+        }
+
+        .cdst > h5 > card-title2 {
+            justify-content: end;
+
+        }
+
+        .card:hover{
+            box-shadow: 20px 20px 80px -44px #000;
+            transition: .5s ease-in-out;
+            cursor: pointer;
+
+
+        }
+
+
+        .card-text .btn{
+            background-color: transparent;
+            outline-color: transparent;
+
+        }
+
