@@ -1,5 +1,5 @@
     let commentInput = document.querySelector('.form-control')
-
+    let idName = document.querySelector('.mypage').textContent
 //     commentInput.addEventListener("keyup", function (event) {
 //      if (event.keyCode === 13) {
 //     save_comment();
@@ -97,14 +97,20 @@
     }
 
     function save_like() {
-         document.querySelector('.like').textContent=Number(document.querySelector('.like').textContent)+1
-        console.log(document.querySelector('.like').textContent)
         $.ajax({
             type: 'POST',
-            url: '/user',
-            data: {like_give: Number(document.querySelector('.like').textContent), num_give: num},
+            url: '/like',
+            data: {like_give: Number(document.querySelector('.like').textContent), num_give: num, id_give: idName},
             success: function (response) {
-                console.log(response)
+                if(response['msg']!=='완료'){
+                    alert(response['msg'])
+                } else {
+                    console.log('좋아요올라가야해')
+                    document.querySelector('.like').textContent=Number(document.querySelector('.like').textContent)+1;
+                    console.log(response['like'])
+                }
+
+
             }
         });
 
@@ -116,7 +122,7 @@
         $.ajax({
             type: 'POST',
             url: '/comment',
-            data: {commentContent_give: commentInput.value, ID_give: '아이디입력', num_give: num},
+            data: {commentContent_give: commentInput.value, ID_give: idName, num_give: num},
             success: function (response) {
                 commentInput.value = ''
                 show_comment()
@@ -129,3 +135,11 @@
         alert('로그아웃!')
         window.location.href = '/login'
     })
+
+    function homepage(){
+         window.location.href = '/'
+    }
+
+    function mypage(){
+        window.location.href = '/list'
+    }
